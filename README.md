@@ -54,6 +54,8 @@ pip install cloud_requests
 
 #### 1. (Required) Download Authentication JSON
 
+    you can omit if request from Cloud REST Service internal to internal.
+
 1. From [Google Cloud Platform Console](https://console.developers.google.com/project), `create project`, if you already have a project, you can omit it.
 
     ![create_project](./static/create_project.png)
@@ -91,6 +93,7 @@ Use this code to create handler.
 ```python
 import cloud_requests
 
+# you can omit auth Parameter if request from Cloud REST Service internal to internal.
 with open("your_auth_file.json") as fp:
     auth = json.loads(fp.read())
 

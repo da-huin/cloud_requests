@@ -5,11 +5,19 @@ import jwt
 import urllib
 
 class CloudRequests():
+"""
+When making a requests to Google Cloud REST Service, it allows you to make a simple request without complicated authentication.
 
+Parameters
+----------
+* external_auth_json: dict
+    
+    GCP Authentication JSON
+
+    you can omit auth Parameter if request from Cloud REST Service internal to internal.
+
+"""
     def __init__(self, external_auth_json = {}):
-        """
-        클라우드런에 올라간 서비스는 기본적으로 인증이 필요한데, 그 인증을 자동으로 해주고 요청을 보내주는 클래스입니다.
-        """
         self.inetral_cache = {}
         self.external_cache = {}
         
@@ -19,21 +27,147 @@ class CloudRequests():
 
 
     def post(self, url, data={}, external=True, **kwargs):
+        """
+
+        This function is POST request that automatically authenticates.
+
+        Parameters
+        ----------
+
+        * `(required) url`: str
+
+            Your Cloud REST Service URL.
+
+            ```
+            https://spider-yfir3gc5lx-an.a.run.app
+            ```
+
+        * `data`: dict (default: json)
+
+            This parameter requested with application/json header.
+
+            ```python
+            {
+                "fruit": "apple"
+            }
+            ```
+        * `external`: bool (default: True)
+
+            Set this value True to Send requests from outside of Cloud REST Service.
+
+            Set this value False to Send requests from inside of Cloud REST Service (In Cloud Run Service to Cloud REST Service)
+
+        * `kwargs`: kwargs
+
+            additional `requests.post` parameters.
+
+            ```python
+            {
+                "headers": {'Authorization': 'ABCDE'},
+                "json": {"fruit":"apple"}
+            }
+            ```
+
+        Examples
+        --------
+
+        ```python
+        data = {}
+        response = handler.post("YOUR Cloud REST Service URI (like Cloud Run URL)", data, external=True)
+
+        print(response.status_code)
+        print(response.json())
+        ```
+
+        result:
+
+        * Your Cloud REST Service Response Returned.
+        ```
+        {"message":"hello world"}
+        ```
+
+        Returns
+        -------
+
+        * Your Cloud REST Service Response: `requests.models.Response`
+
+        """
         if external:
             return self.external_post(url, data, **kwargs)
         else:
             return self.internal_post(url, data, **kwargs)
 
     def get(self, url, data={}, external=True, **kwargs):
+        """
+        This function is POST request that automatically authenticates.
+
+        Parameters
+        ----------
+
+        * `(required) url`: str
+
+            Your Cloud REST Service URL.
+
+            ```
+            https://spider-yfir3gc5lx-an.a.run.app
+            ```
+
+        * `data`: dict (default: json)
+
+            This parameter requested with application/json header.
+
+            ```python
+            {
+                "fruit": "apple"
+            }
+            ```
+        * `external`: bool (default: True)
+
+            Set this value True to Send requests from outside of Cloud REST Service.
+
+            Set this value False to Send requests from inside of Cloud REST Service (In Cloud Run Service to Cloud REST Service)
+
+        * `kwargs`: kwargs
+
+            additional `requests.post` parameters.
+
+            ```python
+            {
+                "headers": {'Authorization': 'ABCDE'},
+                "json": {"fruit":"apple"}
+            }
+            ```
+
+        Examples
+        --------
+
+        ```python
+        data = {}
+        response = handler.get("YOUR Cloud REST Service URI (like Cloud Run URL)", data, external=True)
+
+        print(response.status_code)
+        print(response.json())
+        ```
+
+        result:
+
+        * Your Cloud REST Service Response Returned.
+
+        ```
+        {"message":"hello world"}
+        ```
+
+        Returns
+        -------
+
+        * Your Cloud REST Service Response: `requests.models.Response`
+        """
         if external:
             return self.external_get(url, data, **kwargs)
         else:
             return self.external_get(url, data, **kwargs)
 
     def external_post(self, url, data={}, **kwargs):
-        """
-        외부에서 클라우드 런 서비스로 POST 요청을 보낼 때 사용되는 함수입니다.
-        """
         token = self._get_external_token(url)
         kwargs.update({
             "headers": {'Authorization': 'Bearer %s'%(token)},
@@ -43,9 +177,6 @@ class CloudRequests():
         return requests.post(url, **kwargs)
 
     def internal_post(self, url, data={}, **kwargs):
-        """
-        내부에서 클라우드 런 서비스로 POST 요청을 보낼 때 사용되는 함수입니다.
-        """        
         token = self._get_inetral_token(url)
 
         kwargs.update({
@@ -56,9 +187,6 @@ class CloudRequests():
         return requests.post(url, **kwargs)
 
     def external_get(self, url, data={}, **kwargs):
-        """
-        외부에서 클라우드 런 서비스로 GET 요청을 보낼 때 사용되는 함수입니다.
-        """                
         token = self._get_external_token(url)
         kwargs.update({
             "headers": {'Authorization': 'Bearer %s'%(token)},
@@ -68,9 +196,6 @@ class CloudRequests():
         return requests.get(url, **kwargs)
 
     def internal_get(self, url, data={}, **kwargs):
-        """
-        내부에서 클라우드 런 서비스로 GET 요청을 보낼 때 사용되는 함수입니다.
-        """
         token = self._get_inetral_token(url)
 
         kwargs.update({
