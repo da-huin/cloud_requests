@@ -36,9 +36,9 @@ When making a requests to Google Cloud REST Service, it allows you to make a sim
 
 You can use following functions.
 
-* [Post](#post)
+* [POST](#post)
 
-* [Get](#get)
+* [GET](#get)
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
