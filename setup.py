@@ -9,7 +9,7 @@ def long_description():
     return readme
 
 setup(name='cloud_requests',
-      version='1.0',
+      version='1.0.1',
       description='When making a requests to Google Cloud Service, it allows you to make a simple request without complicated authentication.',
       long_description="Please refer to the https://github.com/da-huin/cloud_requests",
       long_description_content_type="text/markdown",
