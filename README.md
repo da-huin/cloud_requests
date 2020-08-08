@@ -56,33 +56,33 @@ pip install cloud_requests
 
     you can omit if request from Cloud REST Service internal to internal.
 
-1. From [Google Cloud Platform Console](https://console.developers.google.com/project), `create project`, if you already have a project, you can omit it.
+1. **From [Google Cloud Platform Console](https://console.developers.google.com/project), `create project`, if you already have a project, you can omit it.**
 
     ![create_project](./static/create_project.png)
 
-1. From [Google Credential](https://console.developers.google.com/apis/api/iamcredentials.googleapis.com/credentials) choose `Create credentials` > `Service Account`.
+1. **From [Google Credential](https://console.developers.google.com/apis/api/iamcredentials.googleapis.com/credentials) choose `Create credentials` > `Service Account`.**
 
     ![credentials_service_account](./static/credentials_service_account.png)
 
-1. Fill out the form and click `Create Key`. 
+1. **Fill out the form and click `Create Key`. **
     
     <img src="./static/credentials_service_account_form.png" alt="credentials_service_account_form" width="500"/>
     <img src="./static/create_service_account_2.png" alt="create_service_account_2" width="500"/>
     <img src="./static/create_service_account_3.png" alt="create_service_account_3" width="500"/>
 
-1. Click the `account you just created`, from the `Service Accounts list`.
+1. **Click the `account you just created`, from the `Service Accounts list`.**
 
     <img src="./static/select_just.png" alt="select_just" />
 
-1. click the `ADD KEY` > `Create new key`
+1. **click the `ADD KEY` > `Create new key`**
 
     ![credential_create_new_key](./static/credential_create_new_key.png)
 
-1. Set the `Key type` to JSON and click `CREATE` button
+1. **Set the `Key type` to JSON and click `CREATE` button**
 
     ![credential_create_new_key_create](./static/credential_create_new_key_create.png)
 
-1. The JSON file automatically saved, which is used to authenticate the spreadsheet.
+1. **The JSON file automatically saved, which is used to authenticate the spreadsheet.**
 
     ![private_key_saved](./static/private_key_saved.png)
 
